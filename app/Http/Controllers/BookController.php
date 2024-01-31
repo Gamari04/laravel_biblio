@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function book()
+    public function index()
     {
         $books=Book::all();
-        return view('books',compact('books'));
+        return view('admin.books',compact('books'));
         
     }
 }

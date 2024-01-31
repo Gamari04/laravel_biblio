@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/admin', function () {
+    return view('admin.dashboard');
 });
 Route::get('/salma', function () {
     return view('first');
 });
-Route::get('/book',[BookController::class,'book']);
+Route::get('/book',[BookController::class,'index']);
