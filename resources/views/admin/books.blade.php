@@ -26,10 +26,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../app/controllers/admin/BookController.php" method="post"
+                    <form action="{{ route('store') }}" method="post"
                         enctype="multipart/form-data" class="shadow p-4 rounded mt-5"
                         style="width: 90%; max-width: 50rem;">
-
+                           @csrf
                         <h1 class="text-center pb-5 display-4 fs-3">
                             Add New Book
                         </h1>
@@ -37,26 +37,28 @@
                         <div class="mb-3">
                             <label class="form-label">Book Title</label>
                             <input type="text" class="form-control border" placeholder="Enter a title"
-                                name="book_title">
+                                name="title">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label"> Book Description</label>
-                            <input type="text" class="form-control border" placeholder="Enter a description"
-                                name="book_description">
+                        <textarea type="text" class="form-control border" placeholder="Enter a description"
+                                name="description">
+                            </textarea>
+                            
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Book Author</label>
                             <input type="text" class="form-control border" placeholder="Enter the author"
-                                name="book_author">
+                                name="author">
                         </div>
 
 
                         <div class="mb-3">
                             <label class="form-label">Book Genre</label>
                             <input type="text" class="form-control border" placeholder="Enter the genre of the book"
-                                name="book_genre">
+                                name="genre">
                         </div>
 
                         <div class="mb-3">
@@ -76,7 +78,7 @@
                                 name="available_copies">
                         </div>
 
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label"> Book Cover </label>
                             <input type="file" class="form-control border" name="book_cover">
                         </div>
@@ -84,7 +86,7 @@
                         <div class="mb-3 ">
                             <label class="form-label"> File </label>
                             <input type="file" class="form-control border" name="file">
-                        </div>
+                        </div> --}}
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -101,20 +103,11 @@
 <div class="pdf-list d-flex justify-content--start flex-wrap books">
      @foreach ($books as $book)
          <div class="col-3  ">
-            <img src="./../../uploades/" class="w-50" alt="Book Cover">
+            <img src="{{ asset('images/byedbook.jpg') }}" class="w-50" alt="Book Cover">
             <div class="card-body">
                 <h5 class="card-title">
                     {{ $book->title }}
-                    <tr>
-                        <td>{{ $book->id }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr> 
+                
                  
                 </h5>
                 <p class="card-text">
@@ -124,24 +117,37 @@
                         </b></i>
 
                 <p>
-                  Genre :{{ $book->genre }}
+                 <b>Genre :</b> {{ $book->genre }}
                 </p>
                 <p>
-                  Description : {{ $book->description }}
+                  <b>Description :</b> {{ $book->description }}
                 </p>
                 <p>
-                    Publication Year :{{ $book->publication_year}}
+                   <b> Publication Year :</b>{{ $book->publication_year}}
                 </p>
                 <p>
-                   Total Copies : {{ $book->total_copies }}
+                  <b> Total Copies : </b> {{ $book->total_copies }}
                 </p>
                 <p>
-                  Available Copies : {{ $book->available_copies }}
+                 <b>Available Copies : </b>  {{ $book->available_copies }}
                 </p>
-
-
-                <br></b></i>
-                </p>
+                 <div class="card-footer d-flex justify-content-evenly ">
+                    <form action="{{ route('books.edit',$book->id) }}" >
+                        @method('PUT')
+                        @csrf
+                        
+                        <button type="submit"class="btn btn-dark">Edit</button>
+                    </form>
+                    <form action="{{ route('books.destroy',$book->id) }}" >
+                        @method('DELETE')
+                        @csrf
+                        
+                        <button type="submit"class="btn btn-secondary">Delete</button>
+                    </form>
+               
+                 </div>
+                
+         
                 <!-- <a href="uploads/files/" class="btn btn-success">Open</a>
 
                 <a href="uploads/files/" class="btn btn-primary"
