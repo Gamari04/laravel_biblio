@@ -106,26 +106,45 @@
   <table id="fresh-table" class="table">
     <thead>
       <th data-field="id">ID</th>
-      <th data-field="name">Name</th>
-      <th data-field="Last name">Last Name</th>
+      <th data-field="name">Fullname</th>
       <th data-field="Email">Email</th>
       <th data-field="Role">Role</th>
-      <th data-field="Phone" data-formatter="operateFormatter" data-events="operateEvents">Phone</th>
+      <th data-field="Role">Actions</th>
       
     </thead>
     <tbody>
    
-      <tr>
-       
-        <!-- <td><button  class="btn btn-default"><a href="edit.php?id=">Edit</a></button></td>-->
-        <td><a class="btn btn-link text-dark px-3 mb-0" href="../dashboard/edit.php?id="><i class="material-icons text-sm me-2">edit</i>Edit</a></td> 
-        <td><button  class="btn btn-default"><a href="../../app/controllers/admin/deleteUser.php?id="><lord-icon
-    src="https://cdn.lordicon.com/skkahier.json"
-    trigger="hover"
-    style="width:30px;height:30px">
-</lord-ico></a></button></td>
+        @foreach ($users as $user)
+    <tr>
+        <td>{{ $user->id }}</td>
+        <td>{{ $user->name}}</td>
+        <td>{{ $user->email }}</td>
+        <td>{{ $user->role->name }}</td>
+              <!-- <td><button  class="btn btn-default"><a href="edit.php?id=">Edit</a></button></td>-->
+              <td>
+                <form action="{{ route('users.edit',$user->id) }}" >
+                @method('PUT')
+                @csrf
+                
+                <button type="submit"class="btn btn-default"><i class="material-icons text-sm me-2">edit</i></button>
+               </form>
+            </td> 
+              <td>
+                <form action="{{ route('users.destroy',$user->id)}}" method="post">
+                @method('DELETE')
+                @csrf
+                <button  class="btn btn-default"><lord-icon
+                    src="https://cdn.lordicon.com/skkahier.json"
+                    trigger="hover"
+                    style="width:30px;height:30px">
+                </lord-ico></button>
+            </form>
+        </td>
+    </tr> 
+    @endforeach
+ 
   </div>
-      </tr>
+      
      
     
     </tbody>

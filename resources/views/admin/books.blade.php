@@ -45,7 +45,7 @@
                         <textarea type="text" class="form-control border" placeholder="Enter a description"
                                 name="description">
                             </textarea>
-                            
+
                         </div>
 
                         <div class="mb-3">
@@ -138,7 +138,7 @@
                         
                         <button type="submit"class="btn btn-dark">Edit</button>
                     </form>
-                    <form action="{{ route('books.destroy',$book->id) }}" >
+                    <form action="{{ route('books.destroy',$book->id) }}" method="post">
                         @method('DELETE')
                         @csrf
                         
